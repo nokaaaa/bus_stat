@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Шапка -->
+<header class="header">
+    <h1>Admin Dashboard</h1>
+    <div class="date-time">{{ current_time }}</div>
+</header>
+
+<!-- Содержимое -->
+<div class="content">
+    {% for route in routes %}
+    <div class="booking-card">
+        <div class="route-info">
+            <h2>{{ route.from_city }} -> {{ route.to_city }}</h2>
+            <div class="cities">
+                <span class="city">{{ route.from_city }}</span>
+                <span class="city">{{ route.to_city }}</span>
+            </div>
+        </div>
+        
+        <div class="trip-details">
+            <div class="time">{{ route.departure_time|date:"d.m.Y H:i" }}</div>
+            <div class="available-seats">Available: {{ route.available_seats }} Seats</div>
+            <div class="price">{{ route.price }}</div>
+        </div>
+
+        <a href="{% url 'route_detail' route.pk %}" class="buy-button">View Details</a>
+    </div>
+    {% empty %}
+    <div class="no-routes">
+        <p>Нет доступных маршрутов</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 

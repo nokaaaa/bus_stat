@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBook - {% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Боковое меню -->
+        <div class="sidebar">
+            <div class="menu-items">
+                <a href="{% url 'index' %}" class="menu-item {% if request.path == '/' %}active{% endif %}">Dashboard</a>
+                <a href="{% url 'road' %}" class="menu-item {% if 'road' in request.path %}active{% endif %}">Road</a>
+                <a href="{% url 'tickets' %}" class="menu-item {% if 'tickets' in request.path %}active{% endif %}">Tickets</a>
+                <a href="{% url 'statistics' %}" class="menu-item {% if 'statistics' in request.path %}active{% endif %}">Statistics</a>
+                <a href="{% url 'settings' %}" class="menu-item {% if 'settings' in request.path %}active{% endif %}">Settings</a>
+                <a href="{% url 'logout' %}" class="menu-item">Exit</a>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html> 

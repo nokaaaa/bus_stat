@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="routes-grid">
+    {% for route in routes %}
+    <div class="route-card">
+        <div class="route-info">
+            <div class="route-cities">
+                <span class="city">{{ route.from_city }}</span>
+                <span class="arrow">→</span>
+                <span class="city">{{ route.to_city }}</span>
+            </div>
+            <div class="route-details">
+                <div class="detail">
+                    <span class="label">Отправление:</span>
+                    <span class="value">{{ route.departure_time|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Прибытие:</span>
+                    <span class="value">{{ route.arrival_time|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Свободно мест:</span>
+                    <span class="value">{{ route.available_seats }} из {{ route.total_seats }}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Цена:</span>
+                    <span class="value">{{ route.price|floatformat:2 }} ₸</span>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'route_detail' route.pk %}" class="view-btn">Подробнее</a>
+    </div>
+    {% empty %}
+    <div class="no-routes">
+        <p>Нет доступных маршрутов</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 
